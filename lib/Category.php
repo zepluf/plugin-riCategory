@@ -2,6 +2,7 @@
 
 namespace plugins\riCategory;
 
+use plugins\riPlugin\Plugin;
 use plugins\riCore\Model;
 
 class Category extends Model {
@@ -46,7 +47,7 @@ class Category extends Model {
 		
 		$result = $db->Execute($sql);
 		if($result->RecordCount() > 0){
-		    $this->description = $this->container->get('riCategory.CategoriesDescription')->setArray($result->fields);		    
+		    $this->description = Plugin::get('riCategory.CategoriesDescription')->setArray($result->fields);		    
 		}
 		
 		return $this->description;  

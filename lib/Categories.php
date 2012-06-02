@@ -2,6 +2,7 @@
 
 namespace plugins\riCategory;
 
+use plugins\riPlugin\Plugin;
 use plugins\riCore\Collection;
 
 class Categories extends Collection{	
@@ -25,7 +26,7 @@ class Categories extends Collection{
 		if($result->RecordCount() > 0){
 			$collection = array();
 			while(!$result->EOF){
-				$category = $this->container->get('riCategory.Category');			
+				$category = Plugin::get('riCategory.Category');			
 				$category->setArray($result->fields);	
 				$collection[] = $category;
 				$result->MoveNext();
