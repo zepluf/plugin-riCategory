@@ -109,13 +109,15 @@ class Tree {
 	
 	function getDeepestLevelChildren($categories_id){
 	    $categories_id = $this->_getId($categories_id);
-		$this->_buildDeepestLevelChildren($categories_id);
-		$this->is_deepest_cats_built = true;
+        if(!$this->is_deepest_cats_built){
+		    $this->_buildDeepestLevelChildren($categories_id);
+            $this->is_deepest_cats_built = true;
+        }
 		return (isset($this->tree[$categories_id]['deepest_children']) ? $this->tree[$categories_id]['deepest_children'] : array());
 	}	
 	
 	function _buildDeepestLevelChildren($categories_id){
-		if(!$this->is_deepest_cats_built){
+
 			$parent_id = isset($this->tree[$categories_id]['parent_id']) ? $this->tree[$categories_id]['parent_id'] : -1;
 			if(isset($this->tree[$categories_id]['children'])){
 				foreach($this->tree[$categories_id]['children'] as $sub_cat){
@@ -132,8 +134,8 @@ class Tree {
 					$this->tree[$parent_id]['deepest_children'] = array_merge($this->tree[$parent_id]['deepest_children'],$this->tree[$categories_id]['deepest_children']);
 				else
 					$this->tree[$parent_id]['deepest_children'] = $this->tree[$categories_id]['deepest_children'];
-			}			
-		}
+			}
+
 	}		
 	
 	function countSubCategories($categories_id){
@@ -162,7 +164,7 @@ class Tree {
 			$temp = explode('_',$categories_id);
 			$categories_id = end($temp);
 		}
-		return $categories_id;
+		return (int)$categories_id;
 	}
 	
 	/*
